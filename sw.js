@@ -25,27 +25,19 @@ console.log('Started', self);
 
 self.addEventListener('install', function(event) {
   self.skipWaiting();
-  console.log('Installed', event);
+  //console.log('Installed', event);
 });
 
 self.addEventListener('activate', function(event) {
-  console.log('Activated', event);
+  //console.log('Activated', event);
 });
-
-/*self.addEventListener('push', function(event) {
-  console.log('Push message received', event);
-  // TODO
-});*/
 
 
 self.addEventListener('push', function(event) {  
-	debugger;
-  console.log('Received a push message', event);
-
-  var title = 'Notification';  
+  var title = 'Notification!!';  
   var body = 'There is newly updated content available on the site. Click to see more.';  
   var icon = 'https://raw.githubusercontent.com/deanhume/typography/gh-pages/icons/typography.png';  
-  var tag = 'simple-push-demo-notification-tag';
+  var tag = 'rosemag.net/481';
   
   event.waitUntil(  
     self.registration.showNotification(title, {  
@@ -54,4 +46,30 @@ self.addEventListener('push', function(event) {
        tag: tag  
      })  
    );  
+});
+
+
+self.addEventListener('notificationclick', function(event) {  
+  console.log('On notification click: ', event.notification.tag);  
+  // Android doesn't close the notification when you click on it  
+  // See: http://crbug.com/463146  
+  event.notification.close();
+
+  // This looks to see if the current window is already open and  
+  // focuses if it is  
+  event.waitUntil(
+    clients.matchAll({  
+      type: "window"  
+    })
+    .then(function(clientList) {  
+      for (var i = 0; i < clientList.length; i++) {  
+        var client = clientList[i];  
+        if (client.url == '//' + event.notification.tag && 'focus' in client)  
+          return client.focus();  
+      }  
+      if (clients.openWindow) {
+        return clients.openWindow('//' + event.notification.tag);  
+      }
+    })
+  );
 });
