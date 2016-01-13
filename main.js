@@ -26,7 +26,8 @@ if ('serviceWorker' in navigator) {
   }).then(function(reg) {
     console.log('Service Worker is ready :^)', reg);
     reg.pushManager.subscribe({userVisibleOnly: true}).then(function(sub) {
-      console.log('endpoint:', sub.endpoint);
+      subscriptionId = sub.endpoint.split('/')[5];
+      console.log('subscriptionId:', subscriptionId);
     });
   }).catch(function(error) {
     console.log('Service Worker Error :^(', error);
