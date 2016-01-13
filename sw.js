@@ -38,9 +38,9 @@ self.addEventListener('push', function(event) {
   
   var title = 'Push message';
 
-  event.waitUntil(
+  /*event.waitUntil(
     self.registration.showNotification(title, {
       'body': 'The Message',
       'icon': 'images/icon.png'
-    }));
+    }));*/
 });
