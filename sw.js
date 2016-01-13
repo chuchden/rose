@@ -32,7 +32,7 @@ self.addEventListener('activate', function(event) {
   //console.log('Activated', event);
 });
 
-
+/*
 self.addEventListener('push', function(event) {  
   var title = 'Notification!!';  
   var body = 'There is newly updated content available on the site. Click to see more.';  
@@ -72,4 +72,4 @@ self.addEventListener('notificationclick', function(event) {
       }
     })
   );
-});
+});*/
